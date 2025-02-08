@@ -1,62 +1,76 @@
-import { TutorialStep } from "./tutorial-step";
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export default function ConnectSupabaseSteps() {
   return (
     <ol className="flex flex-col gap-6">
-      <TutorialStep title="Create Supabase project">
-        <p>
+      <li className="flex flex-col gap-2">
+        <h3 className="font-medium">Create a Supabase project</h3>
+        <p className="text-sm text-muted-foreground">
           Head over to{" "}
-          <a
-            href="https://app.supabase.com/project/_/settings/api"
+          <Link
+            href="https://supabase.com/dashboard"
             target="_blank"
-            className="font-bold hover:underline text-foreground/80"
-            rel="noreferrer"
+            className="font-bold hover:underline text-foreground"
           >
             database.new
-          </a>{" "}
-          and create a new Supabase project.
+          </Link>{" "}
+          to create a new Supabase project.
         </p>
-      </TutorialStep>
+      </li>
 
-      <TutorialStep title="Declare environment variables">
-        <p>
-          Rename the{" "}
-          <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
-            .env.example
-          </span>{" "}
-          file in your Next.js app to{" "}
-          <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
-            .env.local
-          </span>{" "}
-          and populate with values from{" "}
-          <a
-            href="https://app.supabase.com/project/_/settings/api"
+      <li className="flex flex-col gap-2">
+        <h3 className="font-medium">Retrieve your project credentials</h3>
+        <p className="text-sm text-muted-foreground">
+          Head to your{" "}
+          <Link
+            href="https://supabase.com/dashboard/project/_/settings/api"
             target="_blank"
-            className="font-bold hover:underline text-foreground/80"
-            rel="noreferrer"
+            className="font-bold hover:underline text-foreground"
           >
-            your Supabase project's API Settings
-          </a>
-          .
+            project settings
+          </Link>{" "}
+          and copy the following values:
         </p>
-      </TutorialStep>
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-2 items-center">
+            <Badge variant="secondary">Project URL</Badge>
+            <span className="text-sm text-muted-foreground">
+              https://[project-ref].supabase.co
+            </span>
+          </div>
+          <div className="flex gap-2 items-center">
+            <Badge variant="secondary">Project API Key</Badge>
+            <span className="text-sm text-muted-foreground">
+              your-anon-key
+            </span>
+          </div>
+        </div>
+      </li>
 
-      <TutorialStep title="Restart your Next.js development server">
-        <p>
-          You may need to quit your Next.js development server and run{" "}
-          <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
-            npm run dev
-          </span>{" "}
-          again to load the new environment variables.
+      <li className="flex flex-col gap-2">
+        <h3 className="font-medium">Update your environment variables</h3>
+        <p className="text-sm text-muted-foreground">
+          Create a .env.local file in your project root and add the following variables:
         </p>
-      </TutorialStep>
+        <pre className="bg-secondary p-4 rounded-lg text-sm">
+          <code>{`NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key`}</code>
+        </pre>
+      </li>
 
-      <TutorialStep title="Refresh the page">
-        <p>
-          You may need to refresh the page for Next.js to load the new
-          environment variables.
+      <li className="flex flex-col gap-2">
+        <h3 className="font-medium">Restart your Next.js development server</h3>
+        <p className="text-sm text-muted-foreground">
+          Stop your development server and run npm run dev again for the changes to take effect.
         </p>
-      </TutorialStep>
+        <Button asChild variant="default" className="w-fit">
+          <Link href="/">Refresh the page</Link>
+        </Button>
+      </li>
     </ol>
   );
 }
